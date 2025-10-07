@@ -1,0 +1,104 @@
+{
+  "parameters": {
+    "weights": {
+      "fuel": 0.5,
+      "time": 0.3,
+      "loss": 0.1,
+      "risk": 0.1
+    },
+    "time_value_per_hour": 140,
+    "loss_penalty": 3500,
+    "risk_penalty": 1200,
+    "default_speed_kmph": 60
+  },
+  "nodes": [
+    {"id": "mine", "name": "Месторождение", "latitude": 60.0, "longitude": 30.0},
+    {"id": "hub", "name": "Перегрузочный терминал", "latitude": 60.2, "longitude": 30.4},
+    {"id": "plant", "name": "Завод", "latitude": 59.95, "longitude": 30.5},
+    {"id": "rail", "name": "ЖД станция", "latitude": 60.1, "longitude": 30.2}
+  ],
+  "edges": [
+    {
+      "source": "mine",
+      "target": "hub",
+      "length_km": 120,
+      "base_travel_time_hours": 2.5,
+      "fuel_cost_per_km": 1.5,
+      "loss_probability": 0.03,
+      "risk_factor": 0.05,
+      "time_profiles": [
+        {"start": 0, "end": 360, "multiplier": 1.0},
+        {"start": 360, "end": 600, "multiplier": 1.2},
+        {"start": 600, "end": 900, "multiplier": 1.5},
+        {"start": 900, "end": 1440, "multiplier": 1.1}
+      ],
+      "fuel_profiles": [
+        {"start": 0, "end": 600, "multiplier": 1.0},
+        {"start": 600, "end": 900, "multiplier": 1.1},
+        {"start": 900, "end": 1440, "multiplier": 1.0}
+      ],
+      "loss_profiles": [
+        {"start": 0, "end": 1440, "multiplier": 1.0}
+      ],
+      "risk_profiles": [
+        {"start": 0, "end": 480, "multiplier": 0.8},
+        {"start": 480, "end": 960, "multiplier": 1.0},
+        {"start": 960, "end": 1440, "multiplier": 1.2}
+      ]
+    },
+    {
+      "source": "hub",
+      "target": "plant",
+      "length_km": 80,
+      "base_travel_time_hours": 1.8,
+      "fuel_cost_per_km": 1.3,
+      "loss_probability": 0.02,
+      "risk_factor": 0.04,
+      "time_profiles": [
+        {"start": 0, "end": 540, "multiplier": 1.0},
+        {"start": 540, "end": 960, "multiplier": 1.3},
+        {"start": 960, "end": 1440, "multiplier": 1.1}
+      ],
+      "risk_profiles": [
+        {"start": 0, "end": 720, "multiplier": 0.9},
+        {"start": 720, "end": 1440, "multiplier": 1.1}
+      ]
+    },
+    {
+      "source": "mine",
+      "target": "rail",
+      "length_km": 200,
+      "base_travel_time_hours": 3.8,
+      "fuel_cost_per_km": 1.2,
+      "loss_probability": 0.015,
+      "risk_factor": 0.03,
+      "time_profiles": [
+        {"start": 0, "end": 360, "multiplier": 0.9},
+        {"start": 360, "end": 600, "multiplier": 1.0},
+        {"start": 600, "end": 900, "multiplier": 1.25},
+        {"start": 900, "end": 1440, "multiplier": 1.05}
+      ],
+      "loss_profiles": [
+        {"start": 0, "end": 1440, "multiplier": 0.8}
+      ]
+    },
+    {
+      "source": "rail",
+      "target": "plant",
+      "length_km": 160,
+      "base_travel_time_hours": 3.2,
+      "fuel_cost_per_km": 0.9,
+      "loss_probability": 0.01,
+      "risk_factor": 0.02,
+      "time_profiles": [
+        {"start": 0, "end": 480, "multiplier": 0.95},
+        {"start": 480, "end": 900, "multiplier": 1.05},
+        {"start": 900, "end": 1440, "multiplier": 1.0}
+      ],
+      "fuel_profiles": [
+        {"start": 0, "end": 480, "multiplier": 0.95},
+        {"start": 480, "end": 1440, "multiplier": 1.05}
+      ]
+    }
+  ]
+}
